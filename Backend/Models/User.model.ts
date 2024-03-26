@@ -6,7 +6,9 @@ const UserSchema = new Schema<IUser>({
   name: {
     type: String,
     required: [true, "please provide name!!!"],
+    unique: true,
     lowercase: true,
+    index: 1,
   },
   email: {
     type: String,

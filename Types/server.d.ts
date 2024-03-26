@@ -24,20 +24,23 @@ export enum genres {
   Rpg = "rpg",
   Simulation = "simulation",
 }
+
 type productUrl = URL[] | null;
 type ProductVideo = URL[] | null;
-type ProductReview = URL[] | null;
 
-export interface Review {
+export interface IReview {
   //Todo: will do it next time
+  user: ObjectId;
+  ratings: number;
+  comment: string;
 }
 
-export interface product {
+export interface Iproduct {
   product_name: string;
   price: number;
   genre: genres;
   company: string;
   product_pic: productUrl;
   product_video: ProductVideo;
-  reviews: ObjectId;
+  reviews: Array<Review>;
 }
