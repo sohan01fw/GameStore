@@ -10,7 +10,7 @@ export interface IUser {
   name: string;
   email: string;
   age: number;
-  profile_pic: URL;
+  profile_pic: String;
   preference: boolean;
   role: userRole;
 }
@@ -25,22 +25,19 @@ export enum genres {
   Simulation = "simulation",
 }
 
-type productUrl = URL[] | null;
-type ProductVideo = URL[] | null;
-
 export interface IReview {
   //Todo: will do it next time
   user: ObjectId;
   ratings: number;
   comment: string;
 }
-
 export interface Iproduct {
   product_name: string;
   price: number;
-  genre: genres;
-  company: string;
-  product_pic: productUrl;
-  product_video: ProductVideo;
-  reviews: Array<Review>;
+  genre?: genres;
+  company?: string;
+  product_pics: [] | null;
+  product_videos?: [] | null;
+  thumnail?: String | "";
+  reviews: Array<IReview>;
 }

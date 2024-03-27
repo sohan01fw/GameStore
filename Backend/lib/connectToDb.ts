@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const connURI = process.env.MONGODB_URI || "";
+const connURI = process.env.NEXT_PUBLIC_MONGODB_URI || "";
 
 export async function connectToDB() {
   mongoose.set("strictQuery", true);
