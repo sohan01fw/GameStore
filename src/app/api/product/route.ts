@@ -5,7 +5,7 @@ import { Product } from "@/Backend/Models/Product.model";
 
 connectToDB();
 //create or store product in database
-export default async function POST(req: NextRequest) {
+async function POST(req: NextRequest) {
   try {
     const product = (await req.json()) as Iproduct;
     if (!product) {
@@ -56,5 +56,3 @@ export default async function POST(req: NextRequest) {
     return NextResponse.json({ errMsg: error }, { status: 500 });
   }
 }
-
-export { POST };
