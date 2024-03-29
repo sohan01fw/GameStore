@@ -14,12 +14,17 @@ const fileFilter = (file: any, cb: any) => {
   if (
     file.mimetype === "image/jpeg" ||
     file.mimetype === "image/png" ||
-    file.mimetype === "image/jpg"
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "video/mp4" ||
+    file.mimetype === "video/mpeg" ||
+    file.mimetype === "video/quicktime"
   ) {
     cb(null, true);
   } else {
     cb(
-      new Error("Unsupported file format. Upload only JPEG/JPG or PNG"),
+      new Error(
+        "Unsupported file format. Upload only JPEG/JPG, PNG, MP4, MPEG, or MOV"
+      ),
       false
     );
   }
@@ -27,7 +32,7 @@ const fileFilter = (file: any, cb: any) => {
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 }, // use fileSize instead of fieldSize
+  limits: { fileSize: 1024 * 1024 * 10 }, // increase limit for larger video files
   fileFilter,
 });
 
