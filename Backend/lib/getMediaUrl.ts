@@ -9,7 +9,7 @@ export const config = {
 };
 
 const multerMiddleware = upload.array("product_media", 12);
-export async function getMediaUrl(req: NextRequest) {
+export async function getProductData(req: NextRequest) {
   return new Promise((resolve, reject) => {
     //@ts-ignore
     multerMiddleware(req, null, async (err) => {
@@ -17,10 +17,10 @@ export async function getMediaUrl(req: NextRequest) {
         console.error("Error:", err);
       } else {
         try {
-          const Url = await uploadMedia(req);
+          const data = await uploadMedia(req);
           return resolve({
             data: "Files uploaded successfully",
-            urls: Url,
+            urls: data,
           });
         } catch (error) {
           console.error("Error:", error);

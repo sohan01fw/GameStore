@@ -8,6 +8,10 @@ interface UploadResponse {
 
 async function uploadMedia(req: NextRequest) {
   const files = await req.formData();
+  const company = files.get("company");
+  const genre = files.get("genre");
+  const price = files.get("price");
+  const product_name = files.get("product_name");
   const fileDataArray = files.getAll("product_media") as File[];
   const thumbnailData = files.get("product_thumbnail") as File; // adjust 'product_thumbnail' to your fieldname
   const imageUrls = [];
@@ -45,7 +49,15 @@ async function uploadMedia(req: NextRequest) {
     thumbnailUrl = uploadResponse.url;
   }
 
-  return { imageUrls, videoUrls, thumbnailUrl };
+  return {
+    company,
+    price,
+    genre,
+    product_name,
+    imageUrls,
+    videoUrls,
+    thumbnailUrl,
+  };
 }
 
 export { uploadMedia };
