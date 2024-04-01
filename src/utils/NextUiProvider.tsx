@@ -11,7 +11,7 @@ export function NextUiProviders({ children }: { children: React.ReactNode }) {
   }, []);
   return isClient ? (
     <NextUIProvider>
-      <NextThemesProvider attribute="class" defaultTheme="dark">
+      <NextThemesProvider attribute="class" defaultTheme="white">
         {children}
       </NextThemesProvider>
     </NextUIProvider>

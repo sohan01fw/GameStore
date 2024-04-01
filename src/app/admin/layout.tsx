@@ -13,19 +13,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-theme="dark" lang="en">
+    <html data-theme="white" lang="en">
       <body>
         <div className="grid h-screen grid-flow-col grid-cols-12 grid-rows-3 ">
-          <div className=" col-span-2 row-span-3 h-screen border border-white">
+          <div className=" col-span-2 row-span-3 h-screen">
             <SideBar />
           </div>
           <div className="div col-span-10">
-            <div className=" col-span-3  h-12 border border-white">
+            <div className=" col-span-3  h-12 ">
               <NavBar />
             </div>
-            <div className=" col-span-3 row-span-2 h-[93.7vh] border border-white">
-              {children}
-            </div>
+            <div className=" col-span-3 row-span-2 h-[93.7vh]">{children}</div>
           </div>
         </div>
       </body>

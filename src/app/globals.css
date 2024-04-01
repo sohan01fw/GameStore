@@ -5,3 +5,6 @@
 .bborder {
   @apply border border-white;
 }
+.text-gradient {
+  @apply bg-gradient-to-r from-indigo-600 from-20% via-purple-600 via-40% to-pink-600 to-70% bg-clip-text text-transparent;
+}
