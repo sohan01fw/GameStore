@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-theme="white" lang="en">
+    <html lang="en">
       <body>
         <div className="grid h-screen grid-flow-col grid-cols-12 grid-rows-3 ">
           <div className=" col-span-2 row-span-3 h-screen">
