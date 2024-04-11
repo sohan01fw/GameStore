@@ -15,15 +15,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="grid h-screen grid-flow-col grid-cols-12 grid-rows-3 ">
-          <div className=" col-span-2 row-span-3 h-screen">
+        <div className="  grid  grid-cols-3   ">
+          <div className="bborder grid-cols-1 ">
             <SideBar />
           </div>
-          <div className="div col-span-10">
-            <div className=" col-span-3  h-12 ">
+          <div className="bborder col-span-2">
+            <div className=" ">
               <NavBar />
             </div>
-            <div className=" col-span-3 row-span-2 h-[93.7vh]">{children}</div>
+            <div className=" ">{children}</div>
           </div>
         </div>
       </body>

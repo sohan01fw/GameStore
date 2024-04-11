@@ -1,3 +1,5 @@
-export default function Home() {
-  return <div>Hey iam in nextjsok</div>;
+import React from "react";
+
+export default function page() {
+  return <div>admin page</div>;
 }
