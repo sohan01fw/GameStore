@@ -1,4 +1,4 @@
-import { ObjectId } from "mongoose";
+import { Document, ObjectId } from "mongoose";
 
 //for user
 export enum userRole {
@@ -6,7 +6,7 @@ export enum userRole {
   Admin = "admin",
 }
 
-export interface IUser {
+export interface IUser extends Document {
   name: string;
   email: string;
   age: number;
@@ -31,13 +31,14 @@ export interface IReview {
   ratings: number;
   comment: string;
 }
-export interface Iproduct {
+
+export interface Iproduct extends Document {
   product_name: string;
   price: number;
   genre?: genres;
   company?: string;
   product_pics: [] | null;
   product_videos?: [] | null;
-  thumnail?: String | "";
+  thumnail?: String;
   reviews: Array<IReview>;
 }

@@ -1,33 +1,6 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose, { Document, ObjectId } from "mongoose";
+import { genres, Iproduct, IReview } from "../Types/server";
 const { Schema } = mongoose;
-
-// for products
-export enum genres {
-  Action = "action",
-  Adventure = "adventure",
-  Horror = "horror",
-  Racing = "racing",
-  Rpg = "rpg",
-  Simulation = "simulation",
-}
-
-export interface IReview {
-  //Todo: will do it next time
-  user: ObjectId;
-  ratings: number;
-  comment: string;
-}
-
-export interface Iproduct {
-  product_name: string;
-  price: number;
-  genre?: genres;
-  company?: string;
-  product_pics: [] | null;
-  product_videos?: [] | null;
-  thumnail?: String;
-  reviews: Array<IReview>;
-}
 
 const schemaProduct = new Schema<Iproduct>(
   {
@@ -59,11 +32,11 @@ const schemaProduct = new Schema<Iproduct>(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Product =
-  mongoose.models.Products ||
+  (mongoose.models.Products as mongoose.Model<Iproduct>) ||
   mongoose.model<Iproduct>("Products", schemaProduct);
 
 //creating review model
@@ -77,8 +50,9 @@ const schemaReview = new Schema<IReview>(
     ratings: { type: Number, min: 0, max: 5, required: true },
     comment: { type: String, required: true, lowercase: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Review =
-  mongoose.models.Reviews || mongoose.model<IReview>("Reviews", schemaReview);
+  (mongoose.models.Reviews as mongoose.Model<IReview>) ||
+  mongoose.model<IReview>("Reviews", schemaReview);

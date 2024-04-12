@@ -1,8 +1,15 @@
 import mongoose from "mongoose";
 
+type connObj = {
+  isConnected?: number;
+};
 const connURI = process.env.NEXT_PUBLIC_MONGODB_URI || "";
-
-export async function connectToDB() {
+const conection: connObj = {};
+export async function connectToDB(): Promise<void> {
+  if (conection.isConnected) {
+    console.log("db is already connected");
+    return;
+  }
   mongoose.set("strictQuery", true);
 
   if (!connURI) {
@@ -10,12 +17,12 @@ export async function connectToDB() {
   }
 
   try {
-    await mongoose.connect(connURI);
+    const db = await mongoose.connect(connURI);
+    conection.isConnected = db.connections[0].readyState;
     console.log("Successfully connected to MongoDB");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
-    // Log to a file, send alerts, etc.
-    throw new Error("Failed to connect to MongoDB");
+    process.exit(1);
   }
 
   // Graceful shutdown
