@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDB } from "@/Backend/lib/connectToDb";
-import { Iproduct } from "@/Backend/Types/server";
 import { Product } from "@/Backend/Models/Product.model";
 import { getProductData } from "@/Backend/lib/getMediaUrl";
 
 connectToDB();
 //create or store product in database
-async function handler(req: NextRequest) {
+async function handlerPost(req: NextRequest) {
   try {
     const productData: any = await getProductData(req);
     const {
@@ -33,22 +32,41 @@ async function handler(req: NextRequest) {
       if (!storeProduct) {
         return NextResponse.json(
           { errMsg: "Product could not be stored" },
-          { status: 500 }
+          { status: 500 },
         );
       }
       return NextResponse.json(
         { msg: "successfully store product in db" },
-        { status: 201 }
+        { status: 201 },
       );
     } else {
       return NextResponse.json(
         { message: "Product already exists" },
-        { status: 400 }
+        { status: 400 },
       );
     }
-    return NextResponse.json({ msg: "success" });
   } catch (error: any) {
     return NextResponse.json({ errMsg: error.message }, { status: 500 });
   }
 }
-export { handler as POST };
+async function handlerGet(req: NextRequest): Promise<NextResponse<object>> {
+  try {
+    const findAllProducts = await Product.find();
+    if (findAllProducts.length === 0) {
+      return NextResponse.json(
+        { message: "No product found in store" },
+        { status: 404 },
+      );
+    }
+    return NextResponse.json(
+      { message: "successfully fetched all products", data: findAllProducts },
+      { status: 200 },
+    );
+  } catch (error: any) {
+    return NextResponse.json(
+      { msg: "Error while fetching products data" },
+      { status: 500 },
+    );
+  }
+}
+export { handlerPost as POST, handlerGet as GET };

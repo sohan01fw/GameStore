@@ -1,7 +1,5 @@
 import React from "react";
-import { BiNotification } from "react-icons/bi";
 import { IoNotifications } from "react-icons/io5";
-import { RxAvatar } from "react-icons/rx";
 
 const NavBar = () => {
   return (
