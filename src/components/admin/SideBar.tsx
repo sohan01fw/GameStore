@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { MdDashboard, MdProductionQuantityLimits } from "react-icons/md";
 import { FaUsersGear } from "react-icons/fa6";
@@ -7,7 +8,7 @@ const SideBar = () => {
   return (
     <div className="h-screen ">
       <Link href="/">
-        <div className="   p-2   sm:p-3 ">
+        <div className=" p-2 sm:p-3 ">
           <h1 className="text-gradient text-sm font-bold sm:text-2xl">
             GameStore
           </h1>
@@ -26,11 +27,10 @@ const SideBar = () => {
           </div>
         </Link>
         <Link href="/admin/p/products">
-          <div className="  ml-5 mr-5 flex  justify-center rounded-xl p-3 hover:cursor-pointer hover:text-gray-500 dark:text-gray-500 dark:hover:bg-gray-900 dark:hover:text-gray-300 sm:ml-0">
+          <div className="  ml-5 mr-5 flex  justify-center rounded-xl p-3 hover:cursor-pointer hover:text-gray-500 dark:text-red-500 dark:hover:bg-gray-900 dark:hover:text-gray-300 sm:ml-0">
             <div className="p-icon px-[4px]">
               <MdProductionQuantityLimits fontSize={24} />
             </div>
-
             <h3 className=" mt-[-3px] hidden  text-left text-lg font-semibold sm:block">
               Products
             </h3>

@@ -1,25 +1,22 @@
-"use client";
+
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import Image from "next/image";
 import React from "react";
 import { FaEye } from "react-icons/fa6";
 
-const ViewProducts = ({ resultData }: { resultData: any }) => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["products"],
-    queryFn: () => {
-      return resultData;
-    },
-  });
-  if (isLoading) {
-    return <div>Loading....</div>;
-  }
+const ViewProducts = async () => {
+  await new Promise((resolve, reject) => {
+      setTimeout(resolve, 5000);
+  })
+  const DataRes = await axios.get("http://localhost:3000/api/admin/products");
+  const data = await DataRes?.data
 
   return (
     <div>
       {data?.data.map((data: any, index: number) => {
         return (
-          <div className=" m-10 flex p-4 shadow-md">
+          <div key={index} className=" m-10 flex p-4 shadow-md" >
             <div className="thumnail_pic h-auto w-auto ">
               <Image
                 src={data?.product_pics[0]}
