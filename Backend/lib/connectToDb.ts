@@ -1,15 +1,9 @@
 import mongoose from "mongoose";
 
-type connObj = {
-  isConnected?: number;
-};
+
 const connURI = process.env.NEXT_PUBLIC_MONGODB_URI || "";
-const conection: connObj = {};
 export async function connectToDB(): Promise<void> {
-  if (conection.isConnected) {
-    console.log("db is already connected");
-    return;
-  }
+
   mongoose.set("strictQuery", true);
 
   if (!connURI) {
@@ -17,8 +11,7 @@ export async function connectToDB(): Promise<void> {
   }
 
   try {
-    const db = await mongoose.connect(connURI);
-    conection.isConnected = db.connections[0].readyState;
+    await mongoose.connect(connURI);
     console.log("Successfully connected to MongoDB");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);

@@ -1,4 +1,4 @@
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.
-  return <h3>loading...</h3>;
+  return <div className="bborder skeleton w-80 h-32"></div>
 }

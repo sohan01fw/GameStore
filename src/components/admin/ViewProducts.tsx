@@ -1,19 +1,16 @@
-
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { ProductGetAction } from "@/utils/Actions/Products.Action";
 import Image from "next/image";
 import React from "react";
+import { FaEdit } from "react-icons/fa";
 import { FaEye } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
 
-const ViewProducts = async () => {
-  await new Promise((resolve, reject) => {
-      setTimeout(resolve, 5000);
-  })
-  const DataRes = await axios.get("http://localhost:3000/api/admin/products");
-  const data = await DataRes?.data
+const ViewProducts = async (/* {data}:{data:any} */) => {
+  const data= await ProductGetAction();
 
   return (
-    <div>
+    <div className = "flex justify-between p-2">
+      <div className="product_data">
       {data?.data.map((data: any, index: number) => {
         return (
           <div key={index} className=" m-10 flex p-4 shadow-md" >
@@ -42,6 +39,15 @@ const ViewProducts = async () => {
           </div>
         );
       })}
+      </div>
+      <div className="icons">
+      <div className="edit btn hover:bg-gray-500  mt-14">
+      <FaEdit color="white" fontSize={24} className="hover:cursor-pointer  "  />
+      </div>
+      <div className="btn hover:bg-red-500 btn-sm  mt-14 ">
+      <MdDelete color="white" fontSize={24} className="hover:cursor-pointer  " />
+      </div>
+      </div>
     </div>
   );
 };

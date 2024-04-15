@@ -3,11 +3,18 @@
 @tailwind utilities;
 
 .bborder {
-  @apply border border-black;
+  @apply border border-white;
 }
 .text-gradient {
   @apply bg-gradient-to-r from-indigo-600 from-20% via-purple-600 via-40% to-pink-600 to-70% bg-clip-text text-transparent;
 }
+.hover-text-gradient {
+  @apply hover:bg-gradient-to-r from-indigo-600 from-20% via-purple-600 via-40% to-pink-600 to-70% hover:bg-clip-text hover:text-transparent;
+}
 .colorful-bg {
   @apply bg-gradient-to-r from-indigo-600 from-20% via-purple-600 via-40% to-pink-600 to-70%;
+}
+.hover-colorful-bg{
+  @apply hover:bg-gradient-to-r from-indigo-600 from-20% via-purple-600 via-40% to-pink-600 to-70%;
+
 }
