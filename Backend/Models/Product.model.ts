@@ -22,9 +22,9 @@ export interface Iproduct extends Document {
   price: number;
   genre?: genres;
   company?: string;
+  thumbnail: string;
   product_pics: [] | null;
   product_videos?: [] | null;
-  thumnail?: String;
   reviews: Array<IReview>;
 }
 const schemaProduct = new Schema<Iproduct>(
@@ -47,9 +47,12 @@ const schemaProduct = new Schema<Iproduct>(
       enum: genres,
     },
     company: { type: String, index: 1 },
+    thumbnail:{
+      type:String,
+      required:[true,"thumnail must provide"]
+    },
     product_pics: [],
     product_videos: [],
-    thumnail: String,
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,

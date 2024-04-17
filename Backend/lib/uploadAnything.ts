@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { uploads } from "@/Backend/lib/cloudinary";
 
 interface UploadResponse {
@@ -13,23 +13,19 @@ async function uploadMedia(req: NextRequest) {
   const price = files.get("price");
   const product_name = files.get("product_name");
   const fileDataArray = files.getAll("product_media") as File[];
-  const thumbnailData = files.get("product_thumbnail") as File; // adjust 'product_thumbnail' to your fieldname
-  const imageUrls = [];
-  const videoUrls = [];
+  const thumbnailData = files.get("product_thumbnail") as File;
+  const imageUrls: string[] = [];
+  const videoUrls: string[] = [];
   let thumbnailUrl = "";
 
   for (const fileData of fileDataArray) {
-    const arraybuffer = await fileData.arrayBuffer();
-    const buffer = new Uint8Array(arraybuffer);
-    const buffers = Buffer.from(buffer);
+    const arrayBuffer = await fileData.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
 
     // Determine the resource type based on the file mimetype
     const resourceType = fileData.type.startsWith("image/") ? "image" : "video";
 
-    const uploadResponse = (await uploads(
-      buffers,
-      resourceType
-    )) as UploadResponse;
+    const uploadResponse = await uploads(uint8Array, resourceType) as UploadResponse;
 
     // Separate the URLs based on the resource type
     if (resourceType === "image") {
@@ -40,11 +36,10 @@ async function uploadMedia(req: NextRequest) {
   }
 
   if (thumbnailData) {
-    const arraybuffer = await thumbnailData.arrayBuffer();
-    const buffer = new Uint8Array(arraybuffer);
-    const buffers = Buffer.from(buffer);
+    const arrayBuffer = await thumbnailData.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
 
-    const uploadResponse = (await uploads(buffers, "image")) as UploadResponse;
+    const uploadResponse = await uploads(uint8Array, "image") as UploadResponse;
 
     thumbnailUrl = uploadResponse.url;
   }

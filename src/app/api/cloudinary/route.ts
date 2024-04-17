@@ -1,13 +1,12 @@
-import { getMediaUrl } from "@/Backend/lib/getMediaUrl";
 import { NextRequest, NextResponse } from "next/server";
 
 async function POST(req: NextRequest) {
-  try {
+ /*  try {
     const x = await getMediaUrl(req);
     return NextResponse.json({ data: x });
   } catch (error) {
     return NextResponse.json({ errMsg: error });
-  }
+  } */
 }
 
 export { POST };

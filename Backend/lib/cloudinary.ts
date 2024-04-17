@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import { Readable } from "stream";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -8,7 +9,7 @@ cloudinary.config({
 });
 
 const uploads = (
-  buffer: Buffer,
+  fileBuffer: Uint8Array,
   resourceType: "image" | "video" | "raw" | "auto"
 ) => {
   return new Promise((resolve, reject) => {
@@ -23,7 +24,14 @@ const uploads = (
       }
     );
 
-    streamLoad.end(buffer);
+    const readableStream = new Readable({
+      read() {
+        this.push(fileBuffer);
+        this.push(null);
+      },
+    });
+
+    readableStream.pipe(streamLoad);
   });
 };
 
