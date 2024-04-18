@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDB } from "@/Backend/lib/connectToDb";
-import { Product } from "@/Backend/Models/Product.model";
+import { Iproduct, Product } from "@/Backend/Models/Product.model";
 import { getProductData } from "@/Backend/lib/getMediaUrl";
 import { cloudinary, uploads } from "@/Backend/lib/cloudinary";
+import { FilterQuery, UpdateQuery } from "mongoose";
 
 connectToDB();
 
 //create or store product in database
 async function handlerPost(req: NextRequest) {
   try {
-    const productData: any  = await getProductData(req);
+    const productData: any = await getProductData(req);
     const {
       company,
       genre,
@@ -17,9 +18,9 @@ async function handlerPost(req: NextRequest) {
       product_name,
       imageUrls,
       videoUrls,
-      thumbnailUrl
+      thumbnailUrl,
     } = productData?.urls;
-  
+
     const findProduct = await Product.findOne({ product_name });
     if (!findProduct) {
       const storeProduct = await Product.create({
@@ -27,12 +28,12 @@ async function handlerPost(req: NextRequest) {
         genre,
         price,
         product_name,
-        thumbnail:thumbnailUrl,
+        thumbnail: thumbnailUrl,
         product_pics: imageUrls || [],
         product_videos: videoUrls || [],
         reviews: null,
       });
-     
+
       if (!storeProduct) {
         return NextResponse.json(
           { errMsg: "Product could not be stored" },
@@ -40,7 +41,7 @@ async function handlerPost(req: NextRequest) {
         );
       }
       return NextResponse.json(
-        { msg: "successfully store product in db",data:storeProduct },
+        { msg: "successfully store product in db", data: storeProduct },
         { status: 201 },
       );
     } else {
@@ -75,8 +76,7 @@ async function handlerGet(req: NextRequest): Promise<NextResponse<object>> {
   }
 }
 //update product information or data
-export async function handlerUpdate(req:NextRequest) {
-  
+export async function handlerUpdate(req: NextRequest) {
   try {
     const productData: any = await getProductData(req);
     const {
@@ -88,17 +88,35 @@ export async function handlerUpdate(req:NextRequest) {
       videoUrls,
       thumbnailUrl,
     } = productData?.urls;
-    
-    // const findProduct = await Product.findOneAndUpdate()
-    return NextResponse.json({data:{
-      company,
-      genre,
-      price,
-      product_name,
-      imageUrls,
-      videoUrls,
-      thumbnailUrl,
-    }})
+
+   // Define the update object
+const updateObject: UpdateQuery<Iproduct> = {};
+
+// Check if each field exists and add it to the update object
+if (company) updateObject.company = company;
+if (genre) updateObject.genre = genre;
+if (price) updateObject.price = price;
+if (product_name) updateObject.product_name = product_name;
+
+// If there are image or video URLs, construct the $push object
+if (imageUrls.length > 0 || videoUrls.length > 0) {
+  const pushObject: UpdateQuery<Iproduct> = {};
+  if (imageUrls.length > 0) pushObject.product_pics = { $each: imageUrls };
+  if (videoUrls.length > 0) pushObject.product_videos = { $each: videoUrls };
+  updateObject.$push = pushObject;
+}
+
+// Perform the update operation
+const updateProduct = await Product.findOneAndUpdate(
+  { product_name } as FilterQuery<Iproduct>,
+  updateObject,
+  { upsert: true, new: true },
+);
+
+    return NextResponse.json(
+      { msg: "successfully update the product", data: updateProduct },
+      { status: 200 },
+    );
   } catch (error) {
     return NextResponse.json(
       { msg: "Error while updating products data" },
@@ -117,15 +135,14 @@ export async function handlerUpdate(req:NextRequest) {
     await cloudinary.uploader.destroy("jwsrejbhopxeeojscbnf");
   }
 } */
-//delete product 
-export async function handlerDelete(req:NextRequest) {
-  
+//delete product
+export async function handlerDelete(req: NextRequest) {
   try {
-    const {product_name} = await req.json();
-    const findProduct = await Product.findOneAndDelete({product_name})
-   // If product found, delete associated images and videos from Cloudinary
-   //this is for specific image and video to be deleted 
-/*    if (findProduct) {
+    const { product_name } = await req.json();
+    const findProduct = await Product.findOneAndDelete({ product_name });
+    // If product found, delete associated images and videos from Cloudinary
+    //this is for specific image and video to be deleted
+    /*    if (findProduct) {
     //delte thumnail from cloudinary
     if(findProduct.thumbnail){
       await deleteFromCloudinary("rjcpquyzdal4xptbvlla")
@@ -145,18 +162,21 @@ export async function handlerDelete(req:NextRequest) {
     }
   } */
 
-  if(!findProduct){
-    await cloudinary.api.delete_resources_by_prefix("farcry 5",{
-      type:"upload",
-      resource_type: "image",
-     });
-   await cloudinary.api.delete_resources_by_prefix("farcry 5",{
-      type:"upload",
-      resource_type: "video",
-     });
-  }
-  
-    return NextResponse.json({msg:"successfully deleting product",data:findProduct},{status:200})
+    if (findProduct) {
+      await cloudinary.api.delete_resources_by_prefix("farcry 5", {
+        type: "upload",
+        resource_type: "image",
+      });
+      await cloudinary.api.delete_resources_by_prefix("farcry 5", {
+        type: "upload",
+        resource_type: "video",
+      });
+    }
+
+    return NextResponse.json(
+      { msg: "successfully deleting product", data: findProduct },
+      { status: 200 },
+    );
   } catch (error) {
     return NextResponse.json(
       { msg: "Error while deleting product" },
@@ -164,4 +184,9 @@ export async function handlerDelete(req:NextRequest) {
     );
   }
 }
-export { handlerPost as POST, handlerGet as GET, handlerUpdate as PATCH,handlerDelete as  DELETE };
+export {
+  handlerPost as POST,
+  handlerGet as GET,
+  handlerUpdate as PATCH,
+  handlerDelete as DELETE,
+};

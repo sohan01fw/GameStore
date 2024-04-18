@@ -15,6 +15,7 @@ async function uploadMedia(req: NextRequest) {
   const product_name = files.get("product_name");
   const fileDataArray = files.getAll("product_media") as File[];
   const thumbnailData = files.get("product_thumbnail") as File;
+  //to catch the cloudinary data;
   const imageUrls: string[] = [];
   const videoUrls: string[] = [];
   let thumbnailUrl = "";
@@ -44,7 +45,8 @@ async function uploadMedia(req: NextRequest) {
 
     thumbnailUrl = uploadResponse.url;
   }
-
+if(imageUrls || videoUrls || thumbnailUrl){
+  console.log(imageUrls)
   return {
     company,
     price,
@@ -54,6 +56,8 @@ async function uploadMedia(req: NextRequest) {
     videoUrls,
     thumbnailUrl,
   };
+}
+ 
 }
 
 export { uploadMedia };
