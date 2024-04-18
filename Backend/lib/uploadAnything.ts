@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { uploads } from "@/Backend/lib/cloudinary";
 
 interface UploadResponse {
+  folder:string;
   public_id: string;
   url: string;
 }
@@ -25,7 +26,7 @@ async function uploadMedia(req: NextRequest) {
     // Determine the resource type based on the file mimetype
     const resourceType = fileData.type.startsWith("image/") ? "image" : "video";
 
-    const uploadResponse = await uploads(uint8Array, resourceType) as UploadResponse;
+    const uploadResponse = await uploads(product_name,uint8Array, resourceType) as UploadResponse;
 
     // Separate the URLs based on the resource type
     if (resourceType === "image") {
@@ -39,7 +40,7 @@ async function uploadMedia(req: NextRequest) {
     const arrayBuffer = await thumbnailData.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
 
-    const uploadResponse = await uploads(uint8Array, "image") as UploadResponse;
+    const uploadResponse = await uploads(product_name,uint8Array, "image") as UploadResponse;
 
     thumbnailUrl = uploadResponse.url;
   }

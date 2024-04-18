@@ -9,12 +9,15 @@ cloudinary.config({
 });
 
 const uploads = (
+  folder:any,
   fileBuffer: Uint8Array,
   resourceType: "image" | "video" | "raw" | "auto"
 ) => {
   return new Promise((resolve, reject) => {
     const streamLoad = cloudinary.uploader.upload_stream(
-      { resource_type: resourceType },
+
+       
+      { resource_type: resourceType,folder:folder },
       (error, result) => {
         if (result) {
           resolve({ public_id: result.public_id, url: result.url });

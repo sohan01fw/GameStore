@@ -108,7 +108,7 @@ export async function handlerUpdate(req:NextRequest) {
 }
 
 // Function to delete a file from Cloudinary
-async function deleteFromCloudinary(url: string) {
+/* async function deleteFromCloudinary(url: string) {
   // Extract public_id from the Cloudinary URL
   const publicId = url.split("/").pop()?.split(".")[0];
 
@@ -116,16 +116,16 @@ async function deleteFromCloudinary(url: string) {
   if (publicId) {
     await cloudinary.uploader.destroy("jwsrejbhopxeeojscbnf");
   }
-}
+} */
 //delete product 
 export async function handlerDelete(req:NextRequest) {
   
   try {
     const {product_name} = await req.json();
     const findProduct = await Product.findOneAndDelete({product_name})
-    await deleteFromCloudinary("jwsrejbhopxeeojscbnf")
    // If product found, delete associated images and videos from Cloudinary
-   if (findProduct) {
+   //this is for specific image and video to be deleted 
+/*    if (findProduct) {
     //delte thumnail from cloudinary
     if(findProduct.thumbnail){
       await deleteFromCloudinary("rjcpquyzdal4xptbvlla")
@@ -143,7 +143,19 @@ export async function handlerDelete(req:NextRequest) {
         await deleteFromCloudinary(videoUrl);
       }
     }
+  } */
+
+  if(!findProduct){
+    await cloudinary.api.delete_resources_by_prefix("farcry 5",{
+      type:"upload",
+      resource_type: "image",
+     });
+   await cloudinary.api.delete_resources_by_prefix("farcry 5",{
+      type:"upload",
+      resource_type: "video",
+     });
   }
+  
     return NextResponse.json({msg:"successfully deleting product",data:findProduct},{status:200})
   } catch (error) {
     return NextResponse.json(
