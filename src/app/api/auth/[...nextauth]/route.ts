@@ -1,2 +1,6 @@
-import { handlers } from "@/auth" // Adjust the import path according to where your auth.ts file is located
-export const { GET, POST } = handlers
+import { authOptions } from "@/utils/AuthProvider";
+import NextAuth from "next-auth";
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

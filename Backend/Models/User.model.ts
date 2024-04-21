@@ -21,7 +21,7 @@ const UserSchema = new Schema<IUser>({
     min: 18,
   },
   profile_pic: {
-    type: URL || null,
+    type: String || null,
   },
   role: {
     type: String,

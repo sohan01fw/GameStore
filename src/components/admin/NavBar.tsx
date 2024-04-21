@@ -1,6 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IoNotifications } from "react-icons/io5";
 
 const NavBar = () => {
