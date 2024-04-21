@@ -1,21 +1,40 @@
 "use client"
-import { useMutation } from '@tanstack/react-query';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export function AuthBtn() {
-  const {isPending,mutate} = useMutation({mutationFn:() =>
-    signIn('google', {
-      callbackUrl: '/',
-    })}
-  );
+  const router = useRouter();
+
+  const handleSignIn = async () => {
+    await signIn("google", {redirect:false, callbackUrl: "/" });
+    // If you need to do anything after sign-in, you can add it here
+  };
+
   return (
     <button
       className="btn btn-ghost"
-      onClick={()=>{mutate()}}
-      disabled={isPending}
+      onClick={handleSignIn}
     >
-      {isPending ? <span className="loading loading-dots loading-lg"></span> : 'Sign with Google'}
+      Sign with Google
     </button>
   );
 }
 
+export function LogoutBtn() {
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await signOut({  callbackUrl: "http://localhost:3000/" });
+    // If you need to do anything after sign-out, you can add it here
+    router.push("/"); // Redirect to home page
+  };
+
+  return (
+    <button
+      className="btn btn-ghost"
+      onClick={handleSignOut}
+    >
+      Sign Out
+    </button>
+  );
+}

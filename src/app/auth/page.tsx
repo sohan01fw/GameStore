@@ -1,8 +1,8 @@
-import { AuthBtn } from '@/components/ui/AuthBtn'
+import { AuthBtn, LogoutBtn } from '@/components/ui/AuthBtn'
 import React from 'react'
 
 export default function page() {
   return (
-    <div><AuthBtn /></div>
+    <div><AuthBtn /><LogoutBtn /></div>
   )
 }

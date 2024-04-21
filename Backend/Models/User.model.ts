@@ -1,6 +1,16 @@
 import mongoose from "mongoose";
-import { IUser, userRole } from "../Types/server";
+//for user
+export enum userRole {
+  User = "user",
+  Admin = "admin",
+}
 
+export interface IUser extends Document {
+  name: string;
+  email: string;
+  profile_pic: String;
+  role: userRole;
+}
 const { Schema } = mongoose;
 const UserSchema = new Schema<IUser>({
   name: {
@@ -14,11 +24,6 @@ const UserSchema = new Schema<IUser>({
     type: String,
     required: [true, "please provide your email"],
     unique: true,
-  },
-  age: {
-    type: Number,
-    required: [true, "please provide age"],
-    min: 18,
   },
   profile_pic: {
     type: String || null,
