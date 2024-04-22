@@ -1,10 +1,12 @@
 "use client"
+import { User } from 'next-auth'
+import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { ReactHTML, useState } from 'react'
 import { BiLogIn } from 'react-icons/bi'
 
-export default function UNavBar() {
-  const [user, setuser] = useState(false)
+export default function UNavBar({user}:any){ 
+  console.log(user)
   return (
     <div className="navbar bg-base-100">
     <div className="flex-1">
@@ -33,7 +35,7 @@ export default function UNavBar() {
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
-            <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            <Image alt="Tailwind CSS Navbar component" src={`${user?.image}`} height={120} width={100} priority />
           </div>
         </div>
         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

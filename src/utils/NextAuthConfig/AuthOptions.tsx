@@ -12,6 +12,9 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
+  session:{
+    strategy:"jwt"
+  },
   pages: {
     signIn: "/auth",
   },
@@ -42,8 +45,6 @@ export const authOptions: NextAuthOptions = {
       // Persist the OAuth access_token and or the user id to the token right after signin
       // Query from db to get user role
       if(token){
-
-      
       const getUser = await User.findOne({
         $or: [{ email: token?.email }, { name: token?.name }],
       });
