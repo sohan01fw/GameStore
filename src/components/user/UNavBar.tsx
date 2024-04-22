@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { ReactHTML, useState } from 'react'
 import { BiLogIn } from 'react-icons/bi'
+import { LogoutBtn } from '../ui/AuthBtn'
 
 export default function UNavBar({user}:any){ 
   console.log(user)
@@ -46,7 +47,7 @@ export default function UNavBar({user}:any){
             </a>
           </li>
           <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
+          <li><a><LogoutBtn /></a></li>
         </ul>
       </div>:<div> <Link href="/auth"><button  className='btn  btn-ghost'>login</button></Link></div>
 }

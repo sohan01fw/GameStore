@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { saveUserToDb } from "../Actions/User.Action";
 import { User } from "@/Backend/Models/User.model";
+import { connectToDB } from "@/Backend/lib/connectToDb";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -45,20 +46,27 @@ export const authOptions: NextAuthOptions = {
       // Persist the OAuth access_token and or the user id to the token right after signin
       // Query from db to get user role
       if(token){
-      const getUser = await User.findOne({
-        $or: [{ email: token?.email }, { name: token?.name }],
-      });
+        await connectToDB()
+        try {
+          const getUser = await User.findOne({
+          email: token?.email,
+          });
+          if (!getUser) {
+            // If user not found, simply return the token
+            return token;
+          }
+        
+          // Modify the token payload to include additional user data
+          token.name = getUser.name;
+          token.email = getUser.email;
+          token.picture = String(getUser.profile_pic);
+          token.role = getUser.role;
+          
+        } catch (error) {
+            console.log(error)
+        }
+      
     
-      if (!getUser) {
-        // If user not found, simply return the token
-        return token;
-      }
-    
-      // Modify the token payload to include additional user data
-      token.name = getUser.name;
-      token.email = getUser.email;
-      token.picture = String(getUser.profile_pic);
-      token.role = getUser.role;
       }
       // Return the modified token
       return token;

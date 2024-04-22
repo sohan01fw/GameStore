@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
-
 const connURI = process.env.MONGODB_URI || "";
-export async function connectToDB(): Promise<void> {
 
+// Increase the maximum number of listeners for the NativeConnection event emitter
+mongoose.connection.setMaxListeners(20); // Set the number according to your needs
+
+export async function connectToDB(): Promise<void> {
   mongoose.set("strictQuery", true);
 
   if (!connURI) {

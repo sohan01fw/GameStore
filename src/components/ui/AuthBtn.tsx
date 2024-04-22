@@ -31,10 +31,10 @@ export function LogoutBtn() {
 
   return (
     <button
-      className="btn btn-ghost"
+      className=""
       onClick={handleSignOut}
     >
-      Sign Out
+      logout
     </button>
   );
 }
