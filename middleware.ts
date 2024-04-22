@@ -1,15 +1,10 @@
-import { withAuth } from "next-auth/middleware"
+import { authOptions } from "@/utils/NextAuthConfig/AuthOptions";
+import { getServerSession } from "next-auth";
+import { NextRequest } from "next/server";
 
-export default withAuth(
-  // `withAuth` augments your `Request` with the user's token.
-  function middleware(req) {
-    console.log(req.nextauth.token)
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => token?.role === "admin",
-    },
-  }
-)
-
-export const config = { matcher: ["/admin"] }
+export async function middleware(request: NextRequest) {
+  console.log("Middleware called");
+  const session = "";
+  console.log("Session:", session);
+  // Other code
+}

@@ -13,7 +13,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   return (
     <html lang="en">
       <body>
@@ -24,9 +23,7 @@ export default function RootLayout({
           <div className="w-full  ">
             <div className=" w-auto absolute right-0">
               <NavBar />
-              
             </div>
-          
             <div className="mt-[1rem] ">{children}</div>
           </div>
         </div>

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import ReactQueryProvider from "@/utils/ReactQueryProvider";
-import AuthProvider from "@/utils/NextAuthConfig/AuthProvider";
+import "../globals.css"
+import UNavBar from "@/components/user/UNavBar";
 import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,13 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ReactQueryProvider>
-        <AuthProvider>
-          <body className={inter.className}>
+      <body className={inter.className}>
+        <div className="main-container">
+          <div className="navbar">
+            <UNavBar />
+          </div>
           {children}
-          </body>
-        </AuthProvider>
-      </ReactQueryProvider>
+        </div>
+      </body>
     </html>
   );
 }

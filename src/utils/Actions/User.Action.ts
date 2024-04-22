@@ -1,4 +1,4 @@
-import { userdata } from "@/Types/global";
+import { userdata } from "@/types/global";
 import axios from "axios";
 
 export async function saveUserToDb(data:userdata):Promise<any> {
