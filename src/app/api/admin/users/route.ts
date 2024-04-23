@@ -25,5 +25,16 @@ async function createUser(req:NextRequest){
           );
     }
 }
-
-export {createUser as POST}
+async function getAllUsers(req:NextRequest){
+    await connectToDB()
+    try {
+        const getUsers = await User.find()
+        if(!getUsers){
+            return NextResponse.json({msg:"no user is in db"},{status:404})
+        }
+        return NextResponse.json({msg:"successfully getting all users",data:getUsers},{status:200})
+    } catch (error) {
+        return NextResponse.json({msg:"Error while fetching user data",data:error},{status:500})
+    }
+}
+export {createUser as POST,getAllUsers as GET}

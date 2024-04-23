@@ -32,7 +32,7 @@ const UserSchema = new Schema<IUser>({
     enum: Object.values(userRole),
     default: userRole.User,
   },
-});
+},{timestamps:true});
 
 export const User =
   (mongoose.models.Users as mongoose.Model<IUser>) ||
