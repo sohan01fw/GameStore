@@ -4,3 +4,11 @@ export interface userdata{
     image: String;
    
 }
+
+export interface Udata{
+    name:string;
+    email:string;
+    profile_pic:string;
+    role:"user"| "admin"
+  
+  }

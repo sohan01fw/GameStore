@@ -1,81 +1,74 @@
+import { Udata } from "@/types/global";
 import { getAllUsers } from "@/utils/Actions/User.Action";
 import Image from "next/image";
 import React from "react";
 
-type datas={
-  name:string;
-  email:string;
-  profile_pic:string;
-  role:"user"| "admin"
-
-}
 export default async function page() {
   //get and display all users
   const getUsers = await getAllUsers();
 
   return (
-    <>
-      {getUsers.map((data:datas,index) => {
-        return (
-          <div key={index}>
-            <div className="overflow-x-auto">
-              <table className="table">
-                {/* head */}
-                <thead>
-                  <tr>
-                    <th>
-                      <label>
-                        <input type="checkbox" className="checkbox" />
-                      </label>
-                    </th>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>role</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* row 1 */}
-                  <tr>
-                    <th>
-                      <label>
-                        <input type="checkbox" className="checkbox" />
-                      </label>
-                    </th>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-circle w-12 h-12">
-                            <Image
-                              src={data?.profile_pic}
-                              alt="Avatar Tailwind CSS Component"
-                              height={120}
-                              width={100}
-                              priority
-                            />
+    <div className="">
+      <div className="head">
+        <h1>Manage Users</h1>
+      </div>
+      <div className="flex justify-center">
+        <div className=" mt-20 w-[64rem] ">
+          <div className="overflow-x-auto h-[80vh] ">
+            <table className="table">
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Name</th>
+                  <th>role</th>
+                </tr>
+              </thead>
+              {getUsers.map((data: Udata, index) => {
+                return (
+                  <tbody key={index}>
+                    {/* row 1 */}
+                    <tr>
+                      <td>
+                        <div className="flex items-center gap-3">
+                          <div className="avatar">
+                            <div className="mask mask-circle w-12 h-12">
+                              <Image
+                                src={data?.profile_pic}
+                                alt="Avatar Tailwind CSS Component"
+                                height={120}
+                                width={100}
+                                priority
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <h2 className="font-bold textarea-md">
+                              {data?.email}
+                            </h2>
                           </div>
                         </div>
-                        <div>
-                          <div className="font-bold">{data?.email}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      {data?.name}
-                      <br />
-                     
-                    </td>
-                    <td>{data?.role}</td>
-                    <th>
-                      <button className="btn btn-ghost btn-xs">details</button>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                      </td>
+                      <td className="text-lg text-gray-400">
+                        {data?.name}
+                        <br />
+                      </td>
+                      <td>
+                        <summary className=" btn">{data?.role}</summary>
+                      </td>
+                      <th>
+                        <button className="btn btn-ghost btn-xs">
+                          details
+                        </button>
+                      </th>
+                    </tr>
+                  </tbody>
+                );
+              })}
+            </table>
           </div>
-        );
-      })}
-    </>
+        </div>
+      </div>
+    </div>
   );
 }

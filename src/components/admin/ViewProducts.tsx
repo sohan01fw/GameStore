@@ -7,7 +7,6 @@ import { MdDelete } from "react-icons/md";
 
 const ViewProducts = async (/* {data}:{data:any} */) => {
   const data= await ProductGetAction();
- 
   return (
     <div className = "flex justify-between p-2">
       <div className="product_data">

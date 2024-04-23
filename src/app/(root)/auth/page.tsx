@@ -1,4 +1,4 @@
-import { AuthBtn, LogoutBtn } from '@/components/ui/AuthBtn'
+import { AuthBtn, LogoutBtn } from '@/components/ui/btn/AuthBtn'
 import React from 'react'
 
 export default function page() {
