@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import ViewProducts from "@/components/admin/ViewProducts";
-import AddProductBtn from "@/components/ui/btn/AddProductBtn";
+import { AddProductBtn } from "@/components/ui/btn/AddProductBtn";
 
 export default async function page() {
   return (
@@ -13,11 +13,11 @@ export default async function page() {
       <div className=" right-20 absolute mt-10 m-3">
         <AddProductBtn />
       </div>
-      <Suspense fallback={<p>loading....</p>}>
-        <div className=" mt-[8rem] w-[80%] ml-[5rem]">
-          <ViewProducts /* data = {getProducts} */ />
-        </div>
-      </Suspense>
+      <div className=" mt-[8rem] w-[80%] ml-[5rem]">
+        <Suspense fallback={ <div className="skeleton w-full h-24"></div>}>
+          <ViewProducts />
+        </Suspense>
+      </div>
     </div>
   );
 }

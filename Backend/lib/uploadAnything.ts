@@ -19,7 +19,6 @@ async function uploadMedia(req: NextRequest) {
   const imageUrls: string[] = [];
   const videoUrls: string[] = [];
   let thumbnailUrl = "";
-
   for (const fileData of fileDataArray) {
     const arrayBuffer = await fileData.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
@@ -38,15 +37,14 @@ async function uploadMedia(req: NextRequest) {
   }
 
   if (thumbnailData) {
+    console.log(thumbnailData)
     const arrayBuffer = await thumbnailData.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
 
     const uploadResponse = await uploads(product_name,uint8Array, "image") as UploadResponse;
-
     thumbnailUrl = uploadResponse.url;
   }
 if(imageUrls || videoUrls || thumbnailUrl){
-  console.log(imageUrls)
   return {
     company,
     price,

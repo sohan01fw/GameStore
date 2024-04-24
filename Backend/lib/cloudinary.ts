@@ -3,9 +3,9 @@ import { Readable } from "stream";
 
 // Configure Cloudinary
 cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
+  cloud_name: "dwn7yhtjr",
+  api_key: "844187343234246",
+  api_secret: "4gJQ0TQhjD7xxYkn12yjuR85ZXs",
 });
 
 const uploads = (

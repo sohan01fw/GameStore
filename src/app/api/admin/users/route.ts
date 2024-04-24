@@ -2,8 +2,9 @@ import { User } from "@/Backend/Models/User.model";
 import { connectToDB } from "@/Backend/lib/connectToDb";
 import { NextRequest, NextResponse } from "next/server";
 
+connectToDB()
 async function createUser(req:NextRequest){
-    await connectToDB()
+    
     try {
         const {name,email,image} = await req.json();
         const findUser = await User.findOne({email:email});
@@ -26,7 +27,7 @@ async function createUser(req:NextRequest){
     }
 }
 async function getAllUsers(req:NextRequest){
-    await connectToDB()
+  
     try {
         const getUsers = await User.find()
         if(!getUsers){
