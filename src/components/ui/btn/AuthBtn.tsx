@@ -3,10 +3,10 @@ import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export function AuthBtn() {
-  const router = useRouter();
 
   const handleSignIn = async () => {
-    await signIn("google", {redirect:false, callbackUrl: "/" });
+    const x = await signIn("google", {callbackUrl: "http://localhost:3000/" });
+    
     // If you need to do anything after sign-in, you can add it here
   };
 

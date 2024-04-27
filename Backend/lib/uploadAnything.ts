@@ -37,7 +37,6 @@ async function uploadMedia(req: NextRequest) {
   }
 
   if (thumbnailData) {
-    console.log(thumbnailData)
     const arrayBuffer = await thumbnailData.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
 

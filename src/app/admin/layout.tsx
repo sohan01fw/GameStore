@@ -1,6 +1,5 @@
 import SideBar from "@/components/admin/SideBar";
 import type { Metadata } from "next";
-import "../globals.css";
 import NavBar from "@/components/admin/NavBar";
 import { redirect } from "next/navigation";
 import AuthSession from "@/lib/AuthSession";
@@ -16,7 +15,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const {session}= await AuthSession();
- 
   if(session && session?.role != "admin"){
     return redirect("/")
   }

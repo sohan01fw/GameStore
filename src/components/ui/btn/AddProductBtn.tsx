@@ -1,11 +1,12 @@
 "use client"
 import { deleteProduct } from '@/utils/Actions/Products.Action'
+import Link from 'next/link'
 import React from 'react'
 import { MdDelete } from 'react-icons/md'
 
 export function AddProductBtn() {
   return (
-    <div><button className="btn glass colorful-bg text-gray-200 font-bold text-lg">Add product</button></div>
+       <Link href="/admin/p/addproduct"><button className="btn glass colorful-bg text-gray-200 font-bold text-lg">Add product</button></Link>
   )
 }
 

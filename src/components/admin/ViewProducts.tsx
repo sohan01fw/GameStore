@@ -1,17 +1,14 @@
 import {
   ProductGetAction,
-  deleteProduct,
 } from "@/utils/Actions/Products.Action";
 import Image from "next/image";
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { FaEye } from "react-icons/fa6";
-import { MdDelete } from "react-icons/md";
 import { DeleteProductBtn } from "../ui/btn/AddProductBtn";
 
-const ViewProducts = async (/* {data}:{data:any} */) => {
+const ViewProducts = async () => {
   const data = await ProductGetAction();
-
   return (
     <div className="flex justify-between p-2">
       <div className="product_data">

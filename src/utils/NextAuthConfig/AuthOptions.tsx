@@ -24,11 +24,12 @@ export const authOptions: NextAuthOptions = {
       // Here you can insert the user information into your database.
       // Example: await saveUserToDatabase(user);
       const { name, email, image } = user;
-       await saveUserToDb({
+      console.log(user)
+       /* await saveUserToDb({
         name: name || "",
         email: email || "",
         image: image || "",
-      });
+      }); */
       //console.log(result)
       return true; // Return true to allow the sign-in
     },
