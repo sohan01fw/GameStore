@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { MongooseOptions } from "mongoose";
 
 const connURI = process.env.MONGODB_URI;
 
@@ -22,7 +22,7 @@ export async function connectToDB() {
   }
   // Increase the maximum number of listeners for the event emitter
   mongoose.connection.setMaxListeners(20); // Set a higher limit (e.g., 20)
-  // Graceful shutdown
+ /*  // Graceful shutdown
   process.on("SIGINT", async () => {
     try {
       await mongoose.connection.close();
@@ -32,7 +32,7 @@ export async function connectToDB() {
       console.error("Error closing MongoDB connection:", error);
       process.exit(1);
     }
-  });
+  }); */
 
   return dbConnection;
 }

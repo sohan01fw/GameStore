@@ -1,5 +1,6 @@
 import { User } from "@/Backend/Models/User.model";
 import { connectToDB } from "@/Backend/lib/connectToDb";
+import { UpdateQuery } from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
 connectToDB()
@@ -26,6 +27,28 @@ async function createUser(req:NextRequest){
           );
     }
 }
+async function updateUser(req:NextRequest){
+    try {
+        const {name,email,role} = await req.json();
+        if(!email){
+            return NextResponse.json(
+                { msg: "Email is not provided to delete user" },
+                { status: 400 },
+              );
+        }
+        let updatetask:UpdateQuery<any> = {}
+
+        if(name) updatetask.name = name
+        if(role) updatetask.role = role
+        const upuser = await User.findOneAndUpdate({email},updatetask,{new:true})
+        return NextResponse.json({msg:"successfully updating  user"},{status:200})
+    } catch (error) {
+        return NextResponse.json(
+            { msg: "Error while updating user data",data:error },
+            { status: 500 },
+          );
+    }
+}
 async function getAllUsers(req:NextRequest){
   
     try {
@@ -38,4 +61,4 @@ async function getAllUsers(req:NextRequest){
         return NextResponse.json({msg:"Error while fetching user data",data:error},{status:500})
     }
 }
-export {createUser as POST,getAllUsers as GET}
+export {createUser as POST,getAllUsers as GET,updateUser as PATCH}

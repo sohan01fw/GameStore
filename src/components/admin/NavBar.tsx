@@ -2,6 +2,7 @@
 import React from "react";
 import { IoNotifications } from "react-icons/io5";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const Adminprofileicon = dynamic(
   () => import("../ui/dropdown/Adminprofileicon"),
@@ -11,7 +12,7 @@ const Adminprofilenotify = dynamic(
 );
 const NavBar = () => {
   return (
-    <div className="">
+    <nav className="">
       <div className="navbar bg-base-100">
         <div className="flex-none">
           <div className="dropdown dropdown-end mr-2">
@@ -39,18 +40,15 @@ const NavBar = () => {
               role="button"
               className="avatar btn btn-circle btn-ghost w-8 sm:w-10  "
             >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
+              <div className="w-full rounded-full">
+                  <Image src="" alt="profile" height={120} width={100} loading="lazy" />
               </div>
             </div>
             <Adminprofileicon />
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

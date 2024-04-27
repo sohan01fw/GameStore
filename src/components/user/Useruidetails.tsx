@@ -10,7 +10,7 @@ export default function Useruidetails({ user }: any) {
       className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
     >
       {user?.role === "admin" ? (
-        <Link href="/admin/p/dashboard" prefetch>
+        <Link href="/admin/dashboard" >
           <li>
             <div className="justify-between">
               Dashboard

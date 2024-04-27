@@ -1,4 +1,4 @@
-import { Udata } from "@/types/global";
+/* import { Udata } from "@/types/global";
 import { getAllUsers } from "@/utils/Actions/User.Action";
 import Image from "next/image";
 import React from "react";
@@ -16,7 +16,6 @@ export default async function page() {
         <div className=" mt-20 w-[64rem] ">
           <div className="overflow-x-auto h-[80vh] ">
             <table className="table">
-              {/* head */}
               <thead>
                 <tr>
                   <th>Email</th>
@@ -27,7 +26,6 @@ export default async function page() {
               {getUsers.map((data: Udata, index) => {
                 return (
                   <tbody key={index}>
-                    {/* row 1 */}
                     <tr>
                       <td>
                         <div className="flex items-center gap-3">
@@ -71,4 +69,12 @@ export default async function page() {
       </div>
     </div>
   );
+}
+ */
+import React from 'react'
+
+export default function page() {
+  return (
+    <div>user page</div>
+  )
 }

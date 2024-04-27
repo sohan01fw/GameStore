@@ -157,6 +157,8 @@ export async function handlerUpdate(req: NextRequest) {
     await cloudinary.uploader.destroy("jwsrejbhopxeeojscbnf");
   }
 } */
+
+
 //delete product
 export async function handlerDelete(req: NextRequest) {
   try {
