@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connectToDB } from "@/Backend/lib/connectToDb";
 import {
   IReview,
   Iproduct,
@@ -11,7 +10,7 @@ import { cloudinary, uploads } from "@/Backend/lib/cloudinary";
 import { FilterQuery, UpdateQuery } from "mongoose";
 import { revalidatePath } from "next/cache";
 
-connectToDB();
+
 
 //create or store product in database
 async function handlerPost(req: NextRequest) {
@@ -97,7 +96,7 @@ async function handlerGet(req: NextRequest): Promise<NextResponse<object>> {
   }
 }
 //update product information or data
-export async function handlerUpdate(req: NextRequest) {
+/* export async function handlerUpdate(req: NextRequest) {
   try {
     const productData: any = await getProductData(req);
     const {
@@ -111,7 +110,7 @@ export async function handlerUpdate(req: NextRequest) {
     } = productData?.urls;
 
     // Define the update object
-    const updateObject: UpdateQuery<Iproduct> = {};
+    const updateObject: any = {};
 
     // Check if each field exists and add it to the update object
     if (company) updateObject.company = company;
@@ -121,7 +120,7 @@ export async function handlerUpdate(req: NextRequest) {
 
     // If there are image or video URLs, construct the $push object
     if (imageUrls.length > 0 || videoUrls.length > 0) {
-      const pushObject: UpdateQuery<Iproduct> = {};
+      const pushObject:any = {};
       if (imageUrls.length > 0) pushObject.product_pics = { $each: imageUrls };
       if (videoUrls.length > 0)
         pushObject.product_videos = { $each: videoUrls };
@@ -130,7 +129,7 @@ export async function handlerUpdate(req: NextRequest) {
 
     // Perform the update operation
     const updateProduct = await Product.findOneAndUpdate(
-      { product_name } as FilterQuery<Iproduct>,
+      { product_name },
       updateObject,
       { upsert: true, new: true },
     );
@@ -145,7 +144,7 @@ export async function handlerUpdate(req: NextRequest) {
       { status: 500 },
     );
   }
-}
+} */
 
 // Function to delete a file from Cloudinary
 /* async function deleteFromCloudinary(url: string) {
@@ -160,13 +159,13 @@ export async function handlerUpdate(req: NextRequest) {
 
 
 //delete product
-export async function handlerDelete(req: NextRequest) {
+/* export async function handlerDelete(req: NextRequest) {
   try {
     const {product_name} = await req.json();
     const findProduct = await Product.findOneAndDelete({ product_name });
     // If product found, delete associated images and videos from Cloudinary
     //this is for specific image and video to be deleted
-    /*    if (findProduct) {
+       if (findProduct) {
     //delte thumnail from cloudinary
     if(findProduct.thumbnail){
       await deleteFromCloudinary("rjcpquyzdal4xptbvlla")
@@ -184,7 +183,7 @@ export async function handlerDelete(req: NextRequest) {
         await deleteFromCloudinary(videoUrl);
       }
     }
-  } */
+  }
 
     if (findProduct) {
       await cloudinary.api.delete_resources_by_prefix(product_name, {
@@ -197,7 +196,7 @@ export async function handlerDelete(req: NextRequest) {
       });
     }
     return NextResponse.json(
-      { msg: "successfully deleting product",/*  data: findProduct  */},
+      { msg: "successfully deleting product", data: findProduct },
       { status: 200 },
     );
   } catch (error) {
@@ -207,10 +206,10 @@ export async function handlerDelete(req: NextRequest) {
       { status: 500 },
     );
   }
-}
+} */
 export {
   handlerPost as POST,
   handlerGet as GET,
-  handlerUpdate as PATCH,
-  handlerDelete as DELETE,
+ // handlerUpdate as PATCH,
+  //handlerDelete as DELETE,
 };

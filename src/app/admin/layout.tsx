@@ -3,15 +3,24 @@ import { redirect } from "next/navigation";
 import AuthSession from "@/lib/AuthSession";
 import dynamic from "next/dynamic";
 
-const NavBar = dynamic(()=>
-  import("@/components/admin/NavBar"),{
-    loading: () => <p>Loading....</p>
-  })
+const NavBar = dynamic(() => import("@/components/admin/NavBar"), {
+  loading: () => (
+    <div className="flex flex-col gap-4 w-52 ">
+     <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
+     <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
+    </div>
+  ),
+});
 
-  const SideBar = dynamic(()=>
-    import("@/components/admin/SideBar"),{
-      loading: () => <p>Loading....</p>
-    })
+const SideBar = dynamic(() => import("@/components/admin/SideBar"), {
+  loading: () => (
+    <div className="flex flex-col gap-4 w-52">
+      <div className="skeleton h-4 w-28"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-full"></div>
+    </div>
+  ),
+});
 
 export const metadata: Metadata = {
   title: "admin",
@@ -22,10 +31,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { session } = await AuthSession();
-  if (session && session?.role != "admin") {
-    return redirect("/");
-  }
   return (
     <div className="flex">
       <section className="">

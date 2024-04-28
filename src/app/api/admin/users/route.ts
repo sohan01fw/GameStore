@@ -1,9 +1,7 @@
 import { User } from "@/Backend/Models/User.model";
-import { connectToDB } from "@/Backend/lib/connectToDb";
 import { UpdateQuery } from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
-connectToDB()
 async function createUser(req:NextRequest){
     
     try {

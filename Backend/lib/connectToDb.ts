@@ -1,8 +1,9 @@
+import EventEmitter from "events";
 import mongoose, { MongooseOptions } from "mongoose";
 
 const connURI = process.env.MONGODB_URI;
 
-let dbConnection;
+let dbConnection:any;
 
 export async function connectToDB() {
   mongoose.set("strictQuery", true);
@@ -10,9 +11,6 @@ export async function connectToDB() {
   if (!connURI) {
     throw new Error("Cannot get connection URI");
   }
-
-
-
   try {
     dbConnection = await mongoose.connect(connURI);
     console.log("Successfully connected to MongoDB");
@@ -21,8 +19,8 @@ export async function connectToDB() {
     throw error; // Rethrow the error for handling at a higher level
   }
   // Increase the maximum number of listeners for the event emitter
-  mongoose.connection.setMaxListeners(20); // Set a higher limit (e.g., 20)
- /*  // Graceful shutdown
+  EventEmitter.setMaxListeners(100)
+  // Graceful shutdown
   process.on("SIGINT", async () => {
     try {
       await mongoose.connection.close();
@@ -32,7 +30,7 @@ export async function connectToDB() {
       console.error("Error closing MongoDB connection:", error);
       process.exit(1);
     }
-  }); */
+  });
 
   return dbConnection;
 }

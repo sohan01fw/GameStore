@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ViewProducts from "@/components/admin/ViewProducts";
 import dynamic from "next/dynamic";
 
@@ -26,11 +26,11 @@ export default async function page() {
       </div>
       </div>
     
-     {/*  <div className=" mt-[8rem] w-[80%] ml-[5rem]">
+      <div className=" mt-[8rem] w-[80%] ml-[5rem]">
         <Suspense fallback={ <div className="skeleton w-full h-24"></div>}>
           <ViewProducts />
         </Suspense>
-      </div> */}
+      </div>
     </div>
   );
 }

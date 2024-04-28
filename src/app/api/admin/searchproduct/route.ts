@@ -2,7 +2,7 @@ import { Product } from "@/Backend/Models/Product.model";
 import { NextRequest, NextResponse } from "next/server"
 
 //search product api
-export async function handlerSearch(req:NextRequest){
+ async function handlerSearch(req:NextRequest):Promise<NextResponse>{
     try {
         const search:any = req.nextUrl.searchParams.get("search");
         const searchQuery = {
@@ -14,7 +14,6 @@ export async function handlerSearch(req:NextRequest){
         const searchproduct = await Product.find(searchQuery).limit(10);
         return NextResponse.json({data:searchproduct},{status:200})
     } catch (error) {
-        console.log(error)
        return NextResponse.json({msg:"errro while searching product"},{status:500})
     }
   }

@@ -6,7 +6,7 @@ import { MdDelete } from 'react-icons/md'
 
 export function AddProductBtn() {
   return (
-       <Link href="/admin/p/addproduct"><button className="btn glass colorful-bg text-gray-200 font-bold text-lg">Add product</button></Link>
+       <Link href="/admin/addproduct"><button className="btn glass colorful-bg text-gray-200 font-bold text-lg">Add product</button></Link>
   )
 }
 
