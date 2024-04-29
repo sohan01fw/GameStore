@@ -1,10 +1,11 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import VideoFile from "../ui/UploadInputFile/VideoFile";
+import Thumnail from "../ui/UploadInputFile/Thumnail";
+
+const ImageFile = dynamic(() => import("../ui/UploadInputFile/ImageFile"));
 export default function AddProduct() {
-  const handleFile = (e:any) =>{
-    const file = (e.target.value)
-   const x = URL.createObjectURL(file)
-  }
   return (
     <form method="POST">
       <div className="pructname">
@@ -22,13 +23,19 @@ export default function AddProduct() {
         </div>
         <div className="flex">
           <div className="thumnail">
-          <div className="label">
-            <h3 className="label-text font-semibold text-white ts-md">
-              Select Thumnail
-            </h3>
+            <div className="label">
+              <h3 className="label-text font-semibold text-white ts-md">
+                Select Thumnail
+              </h3>
+            </div>
+            <Thumnail />
           </div>
-          <input accept="image/*"  multiple type="file" className="file-input w-full max-w-xs" onChange={handleFile} />
+          <div className="videos">
+            <div className="label">
+              <h3>select product videos</h3>
+            </div>
           </div>
+          <VideoFile />
         </div>
       </div>
 

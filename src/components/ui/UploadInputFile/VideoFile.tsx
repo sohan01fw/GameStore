@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ImageFile = () => {
+const VideoFile = () => {
   const [selectedImages, setSelectedImages] = useState([]);
 
   const handleFileChange = (event:any) => {
@@ -16,7 +16,7 @@ const ImageFile = () => {
     return (
       <div className="">
         {selectedImages.map((image, index) => (
-          <img key={index} src={URL.createObjectURL(image)} alt="image" className = "rounded-full w-40" />
+          <iframe key={index} src={URL.createObjectURL(image)}  className = "" />
         ))}
       </div>
     );
@@ -27,7 +27,7 @@ const ImageFile = () => {
       <input
         multiple
         type="file"
-        accept="image/*"
+        accept="video/*"
         onChange={handleFileChange}
         className='file-input'
       />
@@ -38,4 +38,4 @@ const ImageFile = () => {
   );
 };
 
-export default ImageFile;
+export default VideoFile;
