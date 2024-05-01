@@ -8,7 +8,6 @@ import {
 import { getProductData } from "@/Backend/lib/getMediaUrl";
 import { cloudinary, uploads } from "@/Backend/lib/cloudinary";
 import { FilterQuery, UpdateQuery } from "mongoose";
-import { revalidatePath } from "next/cache";
 
 
 
@@ -50,9 +49,6 @@ async function handlerPost(req: NextRequest) {
           );
         }
 
-        let path = "/admin/p/products";
-        revalidatePath(path);
-
         return NextResponse.json(
           { msg: "successfully store product in db", data: storeProduct },
           { status: 201 },
@@ -78,10 +74,10 @@ async function handlerPost(req: NextRequest) {
 async function handlerGet(req: NextRequest): Promise<NextResponse<object>> {
   try {
     const findAllProducts = await Product.find();
-    if (findAllProducts.length === 0) {
+    if (!findAllProducts) {
       return NextResponse.json(
-        { message: "No product found in store" },
-        { status: 404 },
+        { message: "No product found in store",data:null },
+        { status: 204 },
       );
     }
     return NextResponse.json(
@@ -159,7 +155,7 @@ async function handlerGet(req: NextRequest): Promise<NextResponse<object>> {
 
 
 //delete product
-/* export async function handlerDelete(req: NextRequest) {
+export async function handlerDelete(req: NextRequest) {
   try {
     const {product_name} = await req.json();
     const findProduct = await Product.findOneAndDelete({ product_name });
@@ -167,7 +163,7 @@ async function handlerGet(req: NextRequest): Promise<NextResponse<object>> {
     //this is for specific image and video to be deleted
        if (findProduct) {
     //delte thumnail from cloudinary
-    if(findProduct.thumbnail){
+    /* if(findProduct.thumbnail){
       await deleteFromCloudinary("rjcpquyzdal4xptbvlla")
     }
     // Delete images from Cloudinary
@@ -182,19 +178,30 @@ async function handlerGet(req: NextRequest): Promise<NextResponse<object>> {
       for (const videoUrl of findProduct.product_videos) {
         await deleteFromCloudinary(videoUrl);
       }
-    }
+    } */
   }
 
     if (findProduct) {
-      await cloudinary.api.delete_resources_by_prefix(product_name, {
+     let xpic = await cloudinary.api.delete_resources_by_prefix(product_name, {
         type: "upload",
         resource_type: "image",
       });
-      await cloudinary.api.delete_resources_by_prefix(product_name, {
+     let yvid = await cloudinary.api.delete_resources_by_prefix(product_name, {
         type: "upload",
         resource_type: "video",
       });
+
+      //delete folder after deleting it's content
+      if(xpic && yvid){
+        await cloudinary.api.delete_folder(product_name, {
+          type: "upload",
+          resource_type: "image" || "video",
+        });
+        
+      }
+     
     }
+  
     return NextResponse.json(
       { msg: "successfully deleting product", data: findProduct },
       { status: 200 },
@@ -206,10 +213,10 @@ async function handlerGet(req: NextRequest): Promise<NextResponse<object>> {
       { status: 500 },
     );
   }
-} */
+}
 export {
   handlerPost as POST,
   handlerGet as GET,
  // handlerUpdate as PATCH,
-  //handlerDelete as DELETE,
+  handlerDelete as DELETE,
 };

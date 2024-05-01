@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const VideoFile = () => {
+const VideoFile = ({onselectproductvideo}:any) => {
   const [selectedImages, setSelectedImages] = useState([]);
 
-  const handleFileChange = (event:any) => {
+  const handleFileChange = (event: any) => {
     const files = event.target.files as FileList;
     if (files && files.length > 0) {
-      const validImages:any = Array.from(files)
+      const validImages: any = Array.from(files);
       setSelectedImages(validImages);
+      onselectproductvideo(validImages)
     }
   };
 
@@ -16,7 +17,14 @@ const VideoFile = () => {
     return (
       <div className="">
         {selectedImages.map((image, index) => (
-          <iframe key={index} src={URL.createObjectURL(image)}  className = "" />
+          <video
+            muted
+            controls
+            autoPlay
+            key={index}
+            src={URL.createObjectURL(image)}
+            className="w-60"
+          />
         ))}
       </div>
     );
@@ -29,11 +37,9 @@ const VideoFile = () => {
         type="file"
         accept="video/*"
         onChange={handleFileChange}
-        className='file-input'
+        className="file-input"
       />
-      <div className="renderimage">
-      {renderPreviews()}
-      </div>
+      <div className="renderimage">{renderPreviews()}</div>
     </div>
   );
 };

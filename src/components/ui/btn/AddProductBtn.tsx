@@ -1,5 +1,6 @@
 "use client"
 import { deleteProduct } from '@/utils/Actions/Products.Action'
+import { useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import React from 'react'
 import { MdDelete } from 'react-icons/md'
@@ -9,6 +10,7 @@ export function AddProductBtn() {
        <Link href="/admin/addproduct"><button className="btn glass colorful-bg text-gray-200 font-bold text-lg">Add product</button></Link>
   )
 }
+
 
 export function DeleteProductBtn({value}:{value:string}){
   const handleDeleteProduct = async () =>{

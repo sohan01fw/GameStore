@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ImageFile = () => {
+const ImageFile = ({onselectproductpic}:any) => {
   const [selectedImages, setSelectedImages] = useState([]);
 
   const handleFileChange = (event:any) => {
@@ -8,6 +8,7 @@ const ImageFile = () => {
     if (files && files.length > 0) {
       const validImages:any = Array.from(files)
       setSelectedImages(validImages);
+      onselectproductpic(validImages)
     }
   };
 

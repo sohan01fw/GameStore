@@ -13,13 +13,17 @@ async function uploadMedia(req: NextRequest) {
   const genre = files.get("genre");
   const price = files.get("price");
   const product_name = files.get("product_name");
-  const fileDataArray = files.getAll("product_media") as File[];
+  const productpicArray = files.getAll("product_pics") as File[];
+  const productvideoArray = files.getAll("product_videos") as File[];
+
   const thumbnailData = files.get("product_thumbnail") as File;
+
   //to catch the cloudinary data;
   const imageUrls: string[] = [];
   const videoUrls: string[] = [];
   let thumbnailUrl = "";
-  for (const fileData of fileDataArray) {
+  //for productpics
+  for (const fileData of productpicArray) {
     const arrayBuffer = await fileData.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
 
@@ -35,7 +39,23 @@ async function uploadMedia(req: NextRequest) {
       videoUrls.push(uploadResponse.url);
     }
   }
+  //for product videos
+  for (const fileData of productvideoArray) {
+    const arrayBuffer = await fileData.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
 
+    // Determine the resource type based on the file mimetype
+    const resourceType = fileData.type.startsWith("image/") ? "image" : "video";
+
+    const uploadResponse = await uploads(product_name,uint8Array, resourceType) as UploadResponse;
+
+    // Separate the URLs based on the resource type
+    if (resourceType === "image") {
+      imageUrls.push(uploadResponse.url);
+    } else {
+      videoUrls.push(uploadResponse.url);
+    }
+  }
   if (thumbnailData) {
     const arrayBuffer = await thumbnailData.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
