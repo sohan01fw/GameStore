@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import ViewProducts from "@/components/admin/ViewProducts";
 import dynamic from "next/dynamic";
 
@@ -20,12 +20,11 @@ export default async function page() {
         </h2>
       </div>
       <div className="userui flex mt-10 m-3 w-[95%] justify-between">
-        <div className="searchinput ml-10"><SearchInput /></div>
+        <div className="searchinput ml-10"><SearchInput  /></div>
         <div className="">
         <AddProductBtn />
       </div>
       </div>
-    
       <div className=" mt-[8rem] w-[80%] ml-[5rem]">
         <Suspense fallback={ <div className="skeleton w-full h-24"></div>}>
           <ViewProducts />

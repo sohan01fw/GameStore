@@ -19,6 +19,17 @@ export async function addProducts(data: any) {
     console.log("error while handling add products", error);
   }
 }
+//search products...
+export async function searchProduct(text:string): Promise<any>{
+  try {
+    
+    const product = await axios.get(`/api/admin/searchproduct?search=${text}`)
+    const data = await product?.data.data;
+    return data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  }
+}
 export async function deleteProduct(value: string): Promise<any> {
   const requestData = {
     product_name: value, // Format the string as a property of an object

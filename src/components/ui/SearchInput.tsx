@@ -1,12 +1,27 @@
 "use client";
-import React, { useState } from "react";
+import { searchProduct } from "@/utils/Actions/Products.Action";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useDebounce, useDebouncedCallback} from "use-debounce"
+export default function SearchInput({searchtext}:any) {
+  const [queryText, setqueryText] = useState<any>("")
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const {replace} = useRouter();
+  const [term]=  useDebounce(queryText, 100);
+      const params = new URLSearchParams(searchParams)
+      if(term){
+        params.set("search",term)
+      }else{
+        params.delete("search")
+      }
+      replace(`${pathname}?${params.toString()}`)
 
-export default function SearchInput() {
-  const [text, settext] = useState("");
-  console.log(text)
+  
+  
   return (
-    <label className="input input-bordered flex items-center gap-2  w-[20rem]">
-      <input type="text" className="grow" placeholder="Search" onChange={(e)=>settext(e.target.value)} />
+    <label className="input input-bordered flex items-center gap-2  w-[20rem]" >
+      <input type="text" className="grow" placeholder="Search" onChange={(e)=>{setqueryText(e.target.value)}} />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"

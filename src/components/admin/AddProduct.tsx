@@ -15,35 +15,36 @@ export default function AddProduct() {
   const [company_name, setcompany_name] = useState("");
   const [price, setprice] = useState(0);
   const [genre, setgenre] = useState("");
-  const [thumnailfile, setthumnailfile] = useState<any>( null);
+  const [thumnailfile, setthumnailfile] = useState<any>(null);
   const [productpicfile, setproductpicfile] = useState<any>();
   const [productvideofile, setproductvideofile] = useState<any>();
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) =>{
-      e.preventDefault();
-      const formData = new FormData();
-      formData.append('product_name', product_name);
-      formData.append('company', company_name);
-      formData.append('genre', genre.toLowerCase());
-      formData.append('price', price.toString());
-      formData.append('product_thumbnail', thumnailfile);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("product_name", product_name);
+    formData.append("company", company_name);
+    formData.append("genre", genre.toLowerCase());
+    formData.append("price", price.toString());
+    formData.append("product_thumbnail", thumnailfile);
+
+    if (productpicfile) {
       //handle the array of pic file
-      for(let i of productpicfile){
-        formData.append('product_pics',i)
+      for (let i of productpicfile) {
+        formData.append("product_pics", i);
       }
+    }
+    if (productvideofile) {
       // Handle the array of video files
       for (let i of productvideofile) {
-        formData.append('product_videos', i);
+        formData.append("product_videos", i);
       }
-    
-      const postproduct = addProducts(formData)
+    }
 
-
-     
-
-  }
+    const postproduct = addProducts(formData);
+  };
 
   return (
-    <form method="POST" onSubmit={handleSubmit} >
+    <form method="POST" onSubmit={handleSubmit}>
       <div className="pructname">
         <div className="form-control w-full max-w-xs">
           <div className="label">
@@ -55,7 +56,7 @@ export default function AddProduct() {
             type="text"
             placeholder="Type here"
             className="input input-ghost w-full max-w-xs"
-            onChange={(e)=>setproduct_name(e.target.value)}
+            onChange={(e) => setproduct_name(e.target.value)}
           />
         </div>
         <div className="company_name">
@@ -68,8 +69,7 @@ export default function AddProduct() {
             type="text"
             placeholder="enter a company name"
             className="input input-ghost "
-            onChange={(e)=>setcompany_name(e.target.value)}
-
+            onChange={(e) => setcompany_name(e.target.value)}
           />
         </div>
         <div className="media file flex">
@@ -107,7 +107,12 @@ export default function AddProduct() {
               <div className="icon">
                 <FaDollarSign />
               </div>
-              <input type="text" className="" placeholder="enter a price.." onChange={(e:any)=>setprice(e.target.value)} />
+              <input
+                type="text"
+                className=""
+                placeholder="enter a price.."
+                onChange={(e: any) => setprice(e.target.value)}
+              />
             </label>
           </div>
         </div>
