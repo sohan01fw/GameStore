@@ -1,5 +1,6 @@
 import {
   ProductGetAction,
+  searchProduct,
 } from "@/utils/Actions/Products.Action";
 import Image from "next/image";
 import React from "react";
@@ -7,8 +8,8 @@ import { FaEdit } from "react-icons/fa";
 import { FaEye } from "react-icons/fa6";
 import { DeleteProductBtn } from "../ui/btn/AddProductBtn";
 
-const ViewProducts = async () => {
-  const data = await ProductGetAction();
+const ViewProducts = async ({ query }: { query?: string }) => {
+  const data = query ? await searchProduct(query) : await ProductGetAction();
   return (
     <div className="flex justify-between p-2">
       <div className="product_data">
@@ -17,14 +18,14 @@ const ViewProducts = async () => {
             <div key={index} className="bborder flex justify-between">
               <div className=" m-10 flex p-4 shadow-md">
                 <div className="thumnail_pic h-auto w-auto ">
-                  <Image
+                  {/*  <Image
                     src={data?.product_pics[0]}
                     height={200}
                     width={150}
                     alt="thumnail_pic"
                     priority
                     className="rounded-2xl"
-                  />
+                  /> */}
                 </div>
                 <div className="p_name px-5">
                   <div className=" flex gap-2">

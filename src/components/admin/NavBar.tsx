@@ -41,7 +41,7 @@ const NavBar = () => {
               className="avatar btn btn-circle btn-ghost w-8 sm:w-10  "
             >
               <div className="w-full rounded-full">
-                  <Image src="" alt="profile" height={120} width={100} loading="lazy" />
+                  {/* <Image src="" alt="profile" height={120} width={100} loading="lazy" /> */}
               </div>
             </div>
             <Adminprofileicon />

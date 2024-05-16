@@ -4,24 +4,25 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDebounce, useDebouncedCallback} from "use-debounce"
 export default function SearchInput({searchtext}:any) {
-  const [queryText, setqueryText] = useState<any>("")
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const {replace} = useRouter();
-  const [term]=  useDebounce(queryText, 100);
-      const params = new URLSearchParams(searchParams)
-      if(term){
-        params.set("search",term)
-      }else{
-        params.delete("search")
-      }
-      replace(`${pathname}?${params.toString()}`)
+
+  const handleSearch = useDebouncedCallback((term:string) =>{
+    const params = new URLSearchParams(searchParams)
+    if(term){
+      params.set("search",term)
+    }else{
+      params.delete("search")
+    }
+    replace(`${pathname}?${params.toString()}`)
+  },300)
 
   
   
   return (
     <label className="input input-bordered flex items-center gap-2  w-[20rem]" >
-      <input type="text" className="grow" placeholder="Search" onChange={(e)=>{setqueryText(e.target.value)}} />
+      <input type="text" className="grow" placeholder="Search"  defaultValue={searchParams.get('search')?.toString()} onChange={(e)=>{handleSearch(e.target.value)}} />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"

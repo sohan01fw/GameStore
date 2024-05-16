@@ -11,7 +11,8 @@ const AddProductBtn = dynamic(()=>
       loading: () => <p>Loading....</p>
     })
 
-export default async function page() {
+export default async function page({searchParams}:{searchParams?:{search?: string}}) {
+  const query = searchParams?.search || '';
   return (
     <div>
       <div className="heading">
@@ -27,7 +28,7 @@ export default async function page() {
       </div>
       <div className=" mt-[8rem] w-[80%] ml-[5rem]">
         <Suspense fallback={ <div className="skeleton w-full h-24"></div>}>
-          <ViewProducts />
+          <ViewProducts query ={query}  />
         </Suspense>
       </div>
     </div>
