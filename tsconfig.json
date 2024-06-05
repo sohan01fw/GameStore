@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
-    "target": "es2015",
-    "downlevelIteration": true,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -30,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "prettier.config.js"
-  ],
+, "src/types"  ],
   "exclude": ["node_modules"]
 }

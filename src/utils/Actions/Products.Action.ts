@@ -42,6 +42,7 @@ export async function deleteProduct(value: string): Promise<any> {
   try {
     const DataRes = await axios.delete(`/api/admin/products`, requestOptions);
     const data = DataRes?.data;
+    console.log(DataRes)
     if (data) {
       revalidatePath(path);
     }
