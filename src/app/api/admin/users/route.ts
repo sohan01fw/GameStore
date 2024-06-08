@@ -3,7 +3,6 @@ import { UpdateQuery } from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
 async function createUser(req:NextRequest){
-    
     try {
         const {name,email,image} = await req.json();
         const findUser = await User.findOne({email:email});
@@ -13,7 +12,6 @@ async function createUser(req:NextRequest){
                 email,
                 profile_pic:image,
         }) 
-        console.log("sdkse",x)
         return NextResponse.json({msg:"successfully creating user"},{status:201})
     }
         return NextResponse.json({msg:"user already exists"},{status:409})
@@ -28,6 +26,13 @@ async function createUser(req:NextRequest){
 async function updateUser(req:NextRequest){
     try {
         const {name,email,role} = await req.json();
+        const findUser = await User.findOne({email})
+        if(!findUser){
+            return NextResponse.json(
+                { msg: "user not found" },
+                { status: 404 },
+              );
+        }
         if(!email){
             return NextResponse.json(
                 { msg: "Email is not provided to delete user" },
@@ -48,10 +53,9 @@ async function updateUser(req:NextRequest){
     }
 }
 async function getAllUsers(req:NextRequest){
-  
     try {
         const getUsers = await User.find()
-        if(!getUsers){
+        if(getUsers.length === 0){
             return NextResponse.json({msg:"no user is in db"},{status:404})
         }
         return NextResponse.json({msg:"successfully getting all users",data:getUsers},{status:200})

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Roboto } from "next/font/google";
-import { MdDashboard, MdProductionQuantityLimits, FaUsersGear, IoSettingsSharp } from "../../lib/Icons";
+import { MdDashboard, MdProductionQuantityLimits, FaUsersGear, MdShoppingCartCheckout } from "../../lib/Icons";
 
 const customFont = Roboto({
   weight: '700',
@@ -13,7 +13,7 @@ const SideBar = () => {
     { href: "/admin/dashboard", Icon: MdDashboard, text: "Dashboard" },
     { href: "/admin/products", Icon: MdProductionQuantityLimits, text: "Products" },
     { href: "/admin/users", Icon: FaUsersGear, text: "Users" },
-    { href: "/admin/settings", Icon: IoSettingsSharp, text: "Settings" },
+    { href: "/admin/orders", Icon: MdShoppingCartCheckout, text: "Orders" },
   ];
 
   return (
@@ -25,18 +25,18 @@ const SideBar = () => {
         </div>
       </Link>
 
-      <nav className="mt-[-35px] flex flex-col gap-4 pt-10 sm:mt-[-15px] sm:gap-4">
+      <nav className=" mt-[-35px] flex flex-col gap-4 pt-10 mt-[-15px]">
         <ul>
           {menuItems.map(({ href, Icon, text }) => (
             <li key={href}>
-              <Link href={href}>
-                <div className="mr-5 flex justify-center rounded-xl p-3 cursor-pointer hover:text-gray-500">
-                  <div className="p-icon px-[4px]">
+                <Link href={href} className=" flex sm:p-3 justify-center sm:justify-normal rounded-xl cursor-pointer hover:text-gray-500">
+                  <div className="p-icon px-[4px] pb-5">
                     <Icon fontSize={24} />
                   </div>
-                  <h3 className="mt-[-3px] text-left text-lg font-semibold sm:block">{text}</h3>
-                </div>
-              </Link>
+                  <div>
+                  <h3 className="mt-[-3px] text-left hidden  text-lg font-semibold sm:block">{text}</h3>
+                  </div>
+                </Link>
             </li>
           ))}
         </ul>

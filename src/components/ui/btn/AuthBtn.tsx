@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 export function AuthBtn() {
 
   const handleSignIn = async () => {
-    const x = await signIn("google", {callbackUrl: "http://localhost:3000/" });
+    const response = await signIn("google", {callbackUrl: "http://localhost:3000/" });
     
-    // If you need to do anything after sign-in, you can add it here
+   
   };
 
   return (

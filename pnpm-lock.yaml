@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^3.6.0
+        version: 3.6.0(react-hook-form@7.51.5(react@18.2.0))
       '@tanstack/react-query':
         specifier: ^5.29.2
         version: 5.29.2(react@18.2.0)
@@ -35,6 +38,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      react-hook-form:
+        specifier: ^7.51.5
+        version: 7.51.5(react@18.2.0)
       react-icons:
         specifier: ^5.1.0
         version: 5.1.0(react@18.2.0)
@@ -42,8 +48,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0(react@18.2.0)
       zod:
-        specifier: ^3.22.5
-        version: 3.22.5
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@tanstack/eslint-plugin-query':
         specifier: ^5.28.11
@@ -82,8 +88,8 @@ importers:
         specifier: ^0.5.14
         version: 0.5.14(prettier@3.2.5)
       tailwindcss:
-        specifier: ^3.4.3
-        version: 3.4.3
+        specifier: ^3.4.4
+        version: 3.4.4
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -119,6 +125,11 @@ packages:
   '@eslint/js@9.0.0':
     resolution: {integrity: sha512-RThY/MnKrhubF6+s1JflwUjPEsnCEmYCWwqa/aRISKWNXGZ9epUwft4bUMM35SdKF9xvBrLydAM1RDHd1Z//ZQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@hookform/resolvers@3.6.0':
+    resolution: {integrity: sha512-UBcpyOX3+RR+dNnqBd0lchXpoL8p4xC21XP8H6Meb8uve5Br1GCnmg0PcBoKKqPKgGu9GHQ/oygcmPrQhetwqw==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
 
   '@humanwhocodes/config-array@0.12.3':
     resolution: {integrity: sha512-jsNnTBlMWuTpDkeE3on7+dWJi0D6fdDfeANj/w7MpS8ztROCoLvIO2nG0CcFj+E4k8j4QrSTh4Oryi3i2G669g==}
@@ -1602,6 +1613,12 @@ packages:
     peerDependencies:
       react: ^18.2.0
 
+  react-hook-form@7.51.5:
+    resolution: {integrity: sha512-J2ILT5gWx1XUIJRETiA7M19iXHlG74+6O3KApzvqB/w8S5NQR7AbU8HVZrMALdmDgWpRPYiZJl0zx8Z4L2mP6Q==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+
   react-icons@5.1.0:
     resolution: {integrity: sha512-D3zug1270S4hbSlIRJ0CUS97QE1yNNKDjzQe3HqY0aefp2CBn9VgzgES27sRR2gOvFK+0CNx/BW0ggOESp6fqQ==}
     peerDependencies:
@@ -1790,8 +1807,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  tailwindcss@3.4.3:
-    resolution: {integrity: sha512-U7sxQk/n397Bmx4JHbJx/iSOOv5G+II3f1kpLpY2QeUv5DcPdcTsYLlusZfq1NthHS1c1cZoyFmmkex1rzke0A==}
+  tailwindcss@3.4.4:
+    resolution: {integrity: sha512-ZoyXOdJjISB7/BcLTR6SEsLgKtDStYyYZVLsUtWChO4Ps20CBad7lfJKVDiejocV4ME1hLmyY0WJE3hSDcmQ2A==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -1944,8 +1961,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@3.22.5:
-    resolution: {integrity: sha512-HqnGsCdVZ2xc0qWPLdO25WnseXThh0kEYKIdV5F/hTHO75hNZFp8thxSeHhiPrHZKrFTo1SOgkAj9po5bexZlw==}
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
 snapshots:
 
@@ -1979,6 +1996,10 @@ snapshots:
       - supports-color
 
   '@eslint/js@9.0.0': {}
+
+  '@hookform/resolvers@3.6.0(react-hook-form@7.51.5(react@18.2.0))':
+    dependencies:
+      react-hook-form: 7.51.5(react@18.2.0)
 
   '@humanwhocodes/config-array@0.12.3':
     dependencies:
@@ -3568,6 +3589,10 @@ snapshots:
       react: 18.2.0
       scheduler: 0.23.0
 
+  react-hook-form@7.51.5(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+
   react-icons@5.1.0(react@18.2.0):
     dependencies:
       react: 18.2.0
@@ -3788,7 +3813,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  tailwindcss@3.4.3:
+  tailwindcss@3.4.4:
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -3991,4 +4016,4 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod@3.22.5: {}
+  zod@3.23.8: {}

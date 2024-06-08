@@ -83,6 +83,7 @@ async function handlerGet(req: NextRequest): Promise<NextResponse<object>> {
       { status: 200 },
     );
   } catch (error: any) {
+    console.log(error)
     return NextResponse.json(
       { msg: "Error while fetching products data" },
       { status: 500 },

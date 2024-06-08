@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 
-const VideoFile = ({onselectproductvideo}:any) => {
-  const [selectedImages, setSelectedImages] = useState([]);
+
+interface videoFileProps{
+  onSelectProductVideo: (files: File[]) => void
+}
+const VideoFile = ({onSelectProductVideo}:videoFileProps) => {
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
   const handleFileChange = (event: any) => {
-    const files = event.target.files as FileList;
+    const files:FileList = event.target.files as FileList;
     if (files && files.length > 0) {
       const validImages: any = Array.from(files);
       setSelectedImages(validImages);
-      onselectproductvideo(validImages)
+      onSelectProductVideo(validImages)
     }
   };
 
