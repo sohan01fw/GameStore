@@ -7,7 +7,7 @@ const Thumnail = dynamic(() => import("../ui/UploadInputFile/Thumnail"));
 const ImageFile = dynamic(() => import("../ui/UploadInputFile/ImageFile"));
 const VideoFile = dynamic(() => import("../ui/UploadInputFile/VideoFile"));
 import {FaDollarSign} from "@/lib/Icons";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import axios from "axios";
 import {addProducts} from "@/utils/Actions/Products.Action";
 import * as z from "zod";
@@ -36,7 +36,7 @@ export default function AddProduct() {
         resolver: zodResolver(AddProductValidation),
         defaultValues: defaultFormData,
     });
-    const onSubmit = async (data: any) => {
+    const onSubmit = useCallback( async (data: any) => {
         console.log("hey");
         console.log("data", data);
         /*  const formData = new FormData();
@@ -56,7 +56,7 @@ export default function AddProduct() {
 
         // Add your API call here to post formData
         console.log(formData); */
-    };
+    },[]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -147,7 +147,7 @@ export default function AddProduct() {
                     </div>
                 </div>
             </div>
-            <div className="media file flex">
+            <div className="media file ">
                 <div className="thumnail">
                     <div className="label">
                         <h3 className="label-text font-semibold text-white ts-md">
@@ -163,6 +163,11 @@ export default function AddProduct() {
                             />
                         )}
                     />
+                    {errors.product_thumbnail?.message && (
+                        <p className="text-red-500 text-sm lowercase p-2">
+                            {errors.product_thumbnail?.message}
+                        </p>
+                    )}
                 </div>
                 <div className="product_pic">
                     <div className="label">
@@ -177,6 +182,11 @@ export default function AddProduct() {
                             <ImageFile onSelectProductPic={(files: File[]) => field.onChange(files)}/>
                         )}
                     />
+                    {errors.product_pics?.message && (
+                        <p className="text-red-500 text-sm lowercase p-2">
+                            {errors.product_pics?.message}
+                        </p>
+                    )}
                 </div>
                 <div className="videos">
                     <div className="label">
@@ -191,6 +201,11 @@ export default function AddProduct() {
                             <VideoFile onSelectProductVideo={(files: File[]) => field.onChange(files)}/>
                         )}
                     />
+                    {errors.product_videos?.message && (
+                        <p className="text-red-500 text-sm lowercase p-2">
+                            {errors.product_videos?.message}
+                        </p>
+                    )}
                 </div>
             </div>
             <button className="btn btn-ghost" type="submit">
